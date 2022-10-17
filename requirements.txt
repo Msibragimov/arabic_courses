@@ -1,0 +1,7 @@
+amqp==5.1.1
+asgiref==3.5.0
+Django==3.2.12
+Pillow==9.0.1
+python-dotenv==0.19.2
+psycopg2-binary==2.9.3
+six==1.16.0
