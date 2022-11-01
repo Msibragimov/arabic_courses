@@ -8,9 +8,16 @@ from django.core.validators import RegexValidator
 User = get_user_model()
 
 
+class Pricing(models.Model):
+    monthly_cost = models.IntegerField()
+    per_week = models.IntegerField()
+    lesson_duration = models.CharField(max_length=100)
+
+
 class Course(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='course-img/', default='images/480x270.png', blank=True)
+    pricing = models.ForeignKey(Pricing, on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=100, blank=True)
     main_info = models.TextField()
     slug = models.SlugField(max_length=100, unique=True)

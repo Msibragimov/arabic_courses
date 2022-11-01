@@ -46,7 +46,7 @@
           </a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
+            <span class=""></span>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -63,16 +63,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="#"> Blog </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact Us</a>
-              </li>
             </ul>
-            <from class="search_form">
-              <input type="text" class="form-control" placeholder="Search here...">
-              <button class="" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </from>
           </div>
         </nav>
       </div>
@@ -84,23 +75,59 @@
 
   <section class="blog_section layout_padding">
     <div class="container">
-      <div class="box">
-        <div class="img-box">
-          <img src="{{course.imageURL}}" alt="">
-          <h4 class="blog_date">
-            <span>
-              {{course.created_at}}
-            </span>
-          </h4>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="box">
+            <div class="img-box">
+              <img src="{{course.imageURL}}" alt="">
+              <h4 class="blog_date">
+                <span>
+                  Course Details
+                </span>
+              </h4>
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{course.name}}
+              </h5>
+              <p>
+                {{course.main_info}}
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="detail-box">
-          <h5>
-            {{course.name}}
-          </h5>
-          <p>
-            {{course.main_info}}
-          </p>
-          <button onclick="document.getElementById('id01').style.display='block'" type="button" class="btn btn-secondary">Register to course</button>
+        <div class="col-md-3">
+          <div class="bg-white box rounded-lg shadow">
+            <div class="img-box" style="margin-left: 5%;">
+              <h4 class="blog_date">Course Pricing</h4>
+            </div>
+            <div class="p-5">
+              <h4 class="font-weight-bold">{{pricing.monthly_cost|floatformat:3}}<span class="text-small font-weight-normal ml-2">/ month</span></h4>
+
+              <div class="custom-separator my-4 mx-auto bg-primary"></div>
+
+              <ul class="list-unstyled my-5 text-small text-left">
+                <li class="mb-3">
+                  Lesson per week : {{pricing.per_week}}
+                </li>
+                <li class="mb-3">
+                  Lesson duaration : {{pricing.lesson_duration}}
+                </li>
+              </ul>
+              <button id="myBtn" type="button" class="btn btn-outline-secondary">Register to course</button>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow box">
+            <div class="img-box" style="margin-left: 4%;">
+              <h4 class="blog_date">Another Courses</h4>
+            </div>
+            <div class="p-5">
+              {% for obj in courses %}
+              <hr>
+              <a class="text-secondary" href="{% url 'course_detail' obj.slug %}">{{obj.name}}</a>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -109,14 +136,12 @@
   <!-- end blog section -->
 
   <!-- modal section -->
-  <div id="id01" class="contact_section modal">
+  <div id="myModal" class="contact_section modal">
     <div class="modal__inner">
       <div class="modal__top">
         <div class="modal__title heading_container">Contact us</div>
-        <div class="btn-box">
-          <button class="modal__close" type="button">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-          </button>
+        <div class="modal__close">
+          <span class="close">&times;</span>
         </div>
       </div>
       <div class="modal__content">
@@ -143,104 +168,6 @@
   </div>
   <!-- end modal section -->
 
-  <!-- Pricing Table-->
-  <section>
-    <div class="container py-5">
-      <div class="row text-center align-items-end">
-        <!-- Pricing Table-->
-        <div class="col-lg-4 mb-5 mb-lg-0">
-          <div class="bg-white p-5 rounded-lg shadow">
-            <h1 class="h6 text-uppercase font-weight-bold mb-4">Basic</h1>
-            <h2 class="h1 font-weight-bold">$199<span class="text-small font-weight-normal ml-2">/ month</span></h2>
-  
-            <div class="custom-separator my-4 mx-auto bg-primary"></div>
-  
-            <ul class="list-unstyled my-5 text-small text-left">
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Lorem ipsum dolor sit amet</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Sed ut perspiciatis</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> At vero eos et accusamus</li>
-              <li class="mb-3 text-muted">
-                <i class="fa fa-times mr-2"></i>
-                <del>Nam libero tempore</del>
-              </li>
-              <li class="mb-3 text-muted">
-                <i class="fa fa-times mr-2"></i>
-                <del>Sed ut perspiciatis</del>
-              </li>
-              <li class="mb-3 text-muted">
-                <i class="fa fa-times mr-2"></i>
-                <del>Sed ut perspiciatis</del>
-              </li>
-            </ul>
-            <button onclick="document.getElementById('id01').style.display='block'" type="button" class="btn btn-secondary">Register to course</button>
-          </div>
-        </div>
-        <!-- END -->
-  
-  
-        <!-- Pricing Table-->
-        <div class="col-lg-4 mb-5 mb-lg-0">
-          <div class="bg-white p-5 rounded-lg shadow">
-            <h1 class="h6 text-uppercase font-weight-bold mb-4">Pro</h1>
-            <h2 class="h1 font-weight-bold">$399<span class="text-small font-weight-normal ml-2">/ month</span></h2>
-  
-            <div class="custom-separator my-4 mx-auto bg-primary"></div>
-  
-            <ul class="list-unstyled my-5 text-small text-left font-weight-normal">
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Lorem ipsum dolor sit amet</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Sed ut perspiciatis</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> At vero eos et accusamus</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Nam libero tempore</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Sed ut perspiciatis</li>
-              <li class="mb-3 text-muted">
-                <i class="fa fa-times mr-2"></i>
-                <del>Sed ut perspiciatis</del>
-              </li>
-            </ul>
-            <button onclick="document.getElementById('id01').style.display='block'" type="button" class="btn btn-secondary">Register to course</button>          </div>
-        </div>
-        <!-- END -->
-  
-  
-        <!-- Pricing Table-->
-        <div class="col-lg-4">
-          <div class="bg-white p-5 rounded-lg shadow">
-            <h1 class="h6 text-uppercase font-weight-bold mb-4">Enterprise</h1>
-            <h2 class="h1 font-weight-bold">$899<span class="text-small font-weight-normal ml-2">/ month</span></h2>
-  
-            <div class="custom-separator my-4 mx-auto bg-primary"></div>
-  
-            <ul class="list-unstyled my-5 text-small text-left font-weight-normal">
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Lorem ipsum dolor sit amet</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Sed ut perspiciatis</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> At vero eos et accusamus</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Nam libero tempore</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Sed ut perspiciatis</li>
-              <li class="mb-3">
-                <i class="fa fa-check mr-2 text-primary"></i> Sed ut perspiciatis</li>
-            </ul>
-            <button onclick="document.getElementById('id01').style.display='block'" type="button" class="btn btn-secondary">Register to course</button>          </div>
-        </div>
-        <!-- END -->
-  
-      </div>
-    </div>
-  </section>
-
-
   <!-- info section -->
 
   <section class="info_section layout_padding2">
@@ -255,16 +182,10 @@
               Vitae aut explicabo fugit facere alias distinctio, exem commodi mollitia minusem dignissimos atque asperiores incidunt vel voluptate iste
             </p>
             <div class="info_social">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
+              <a href="https://t.me/toyyiba_art_uz">
+                <i class="fa fa-telegram" aria-hidden="true"></i>
               </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
+              <a href="https://www.instagram.com/toyyiba_art_uz">
                 <i class="fa fa-instagram" aria-hidden="true"></i>
               </a>
             </div>
@@ -334,6 +255,8 @@
   </footer>
   <!-- footer section -->
 
+  <!-- Modal -->
+  <script src="{% static 'js/modal.js' %}"></script>
   <!-- jQery -->
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- bootstrap js -->
@@ -344,44 +267,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
-
-<script>
-  var modal = document.getElementById('id01');
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-
-  // var form = document.getElementById('form')
-
-  // document.getElementById('send-data').addEventListener('click', function(e){
-  //     submitFormData()
-  // })
-
-  // function submitFormData(){
-  //     var userFormData = {
-  //         'first_name':null,
-  //         'last_name':null,
-  //         'phone_number':null,
-  //     }
-
-  //     userFormData.first_name = form.first_name.value
-  //     userFormData.last_name = form.last_name.value
-  //     userFormData.phone_number = form.phone_number.value
-
-  //     var url = '/customer/'
-  //     fetch(url, {
-  //         method:'POST',
-  //         body:JSON.stringify({'user-form':userFormData})
-  //     })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //         console.log('Success:', data);
-  //         window.location.href = "{% url 'homepage' %}"
-  //     })
-  // }
-</script>
 
 </body>
 
